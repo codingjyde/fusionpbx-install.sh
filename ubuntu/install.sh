@@ -47,7 +47,27 @@ resources/php.sh
 resources/nginx.sh
 
 #Postgres
-resources/postgresql.sh
+# Prompt user for remote PostgreSQL details
+verbose "Please enter the details for the remote PostgreSQL server:"
+echo -n "Enter PostgreSQL host: "
+read database_host
+echo -n "Enter PostgreSQL port (default: 5432): "
+read database_port
+database_port=${database_port:-5432}
+echo -n "Enter PostgreSQL database name: "
+read database_name
+echo -n "Enter PostgreSQL user: "
+read database_user
+echo -n "Enter PostgreSQL password: "
+read -s database_password
+echo
+
+# Export database details
+export DATABASE_HOST="$database_host"
+export DATABASE_PORT="$database_port"
+export DATABASE_NAME="$database_name"
+export DATABASE_USER="$database_user"
+export DATABASE_PASSWORD="$database_password"
 
 #Optional Applications
 resources/applications.sh
